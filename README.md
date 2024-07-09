@@ -1,1 +1,1 @@
-# practica
+# practica что б тебя.
