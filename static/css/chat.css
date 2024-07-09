@@ -1,0 +1,122 @@
+/* Обновите и добавьте необходимые стили */
+
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .row {
+    display: flex;
+    width: 100%;
+  }
+  
+  .menu {
+    width: 60px;
+    background: #2c3e50;
+  }
+  
+  .menu .items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu .item {
+    padding: 15px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .menu .item-active {
+    background: #1abc9c;
+  }
+  
+  .discussions {
+    width: 30%;
+    background: #ecf0f1;
+    overflow-y: auto;
+  }
+  
+  .discussion {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #bdc3c7;
+    cursor: pointer;
+  }
+  
+  .discussion .photo {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    border-radius: 50%;
+  }
+  
+  .discussion .desc-contact {
+    margin-left: 15px;
+  }
+  
+  .chat {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+  
+  .header-chat {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #bdc3c7;
+  }
+  
+  .messages-chat {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+  }
+  
+  .message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .message .photo {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .message .text {
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .footer-chat {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #bdc3c7;
+  }
+  
+  .footer-chat .write-message {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    background: #ecf0f1;
+    margin-right: 10px;
+  }
+  
+  .footer-chat .send {
+    background: #1abc9c;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+  }

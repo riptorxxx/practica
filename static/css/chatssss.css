@@ -1,0 +1,66 @@
+
+
+body {
+    background-color: #fff; /* Белый фон экрана */
+    color: #0080ff; /* Голубой цвет текста */
+    font-family: Arial, sans-serif; /* Черный шрифт */
+}
+
+#messages {
+    height: 80vh; /* 80% высоты окна просмотра */
+    width: 80%; /* 80% ширины окна просмотра */
+    overflow-y: scroll; /* Включаем вертикальную прокрутку */
+    border: 1px solid #0080ff; /* Граница окна сообщений */
+    padding: 10px; /* Отступы внутри окна сообщений */
+}
+
+#chat {
+    margin-top: 20px; /* Отступ сверху для блока чата */
+}
+
+input[type="text"], button {
+    font-family: Arial, sans-serif; /* Черный шрифт для полей ввода и кнопок */
+    color: #0080ff; /* Голубой цвет текста */
+}
+
+button {
+    background-color: #0080ff; /* Голубой цвет фона кнопок */
+    color: #fff; /* Белый цвет текста кнопок */
+    border: none; /* Убираем границы у кнопок */
+    padding: 10px 20px; /* Внутренние отступы кнопок */
+    cursor: pointer; /* Курсор указывает на то, что кнопка кликабельна */
+}
+
+button:hover {
+    background-color: #005f7f; /* Цвет фона кнопки при наведении */
+}
+
+button:focus {
+    outline: none; /* Убираем фокусовую рамку */
+}
+
+/* Дополнительные стили, если необходимо */
+
+
+/* styles.css */
+
+#messages {
+    font-family: Arial, sans-serif; /* Черный шрифт */
+    color: #0080ff; /* Голубой цвет текста */
+    background-color: #ffffff; /* Белый фон */
+    border: 5px solid #0080ff; /* Граница толщиной 5px и цвета кнопки "Отправить" */
+    width: 80%; /* Ширина 80% экрана */
+    height: 80vh; /* Высота 80% высоты окна */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    padding: 20px; /* Внутренние отступы */
+    margin: 20px auto; /* Центрируем по горизонтали */
+}
+
+#messages::-webkit-scrollbar {
+    width: 10px; /* Ширина полосы прокрутки */
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background-color: #0080ff; /* Цвет полосы прокрутки */
+    border-radius: 5px; /* Скругление углов */
+}
