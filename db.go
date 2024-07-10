@@ -25,31 +25,38 @@ func initDatabase() *sql.DB {
 func createSqlObj() {
 	var err error
 	createUsersTableQuery := `
-    CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        login VARCHAR(50) UNIQUE NOT NULL,
-        email VARCHAR(50) UNIQUE NOT NULL,
-        phone VARCHAR(15) UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-		token TEXT,
-        uid UUID DEFAULT gen_random_uuid() UNIQUE,
-        create_date TIMESTAMP DEFAULT current_timestamp
-    )`
+		CREATE TABLE IF NOT EXISTS public.users (
+		id serial4 NOT NULL,
+		login varchar(50) NOT NULL,
+		email varchar(50) NOT NULL,
+		phone varchar(15) NOT NULL,
+		"password" text NOT NULL,
+		"token" text NULL,
+		uid uuid NULL DEFAULT gen_random_uuid(),
+		create_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+		CONSTRAINT users_email_key UNIQUE (email),
+		CONSTRAINT users_login_key UNIQUE (login),
+		CONSTRAINT users_phone_key UNIQUE (phone),
+		CONSTRAINT users_pkey PRIMARY KEY (id),
+		CONSTRAINT users_uid_key UNIQUE (uid)
+		)`
+
+	createChatsTableQuery := `
+		CREATE TABLE IF NOT EXISTS public.chats (
+		id serial4 NOT NULL,
+		uid uuid NULL DEFAULT gen_random_uuid(),
+		"name" varchar(64) NOT NULL,
+		lcc timestamp NOT NULL,
+		cypher varchar(64) NOT NULL,
+		user_uid uuid NULL,
+		CONSTRAINT chats_pkey PRIMARY KEY (id),
+		CONSTRAINT chats_user_uid_fkey FOREIGN KEY (user_uid) REFERENCES public.users(uid)
+		)`
 
 	_, err = db.Exec(createUsersTableQuery)
 	if err != nil {
 		log.Fatal("Failed to create users table:", err)
 	}
-
-	createChatsTableQuery := `
-    CREATE TABLE IF NOT EXISTS chats (
-		id SERIAL PRIMARY KEY,
-        uid UUID DEFAULT gen_random_uuid(),
-        name VARCHAR(64) NOT NULL,
-        lcc TIMESTAMP NOT NULL,
-        cypher VARCHAR(64) NOT NULL,
-        user_uid UUID REFERENCES users(uid)
-    )`
 
 	_, err = db.Exec(createChatsTableQuery)
 	if err != nil {

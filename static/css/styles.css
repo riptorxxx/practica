@@ -1,16 +1,108 @@
+/* styles.css */
 body {
     font-family: Arial, sans-serif;
 }
 
-form {
-    margin: 20px;
+h1, h2 {
+    text-align: center;
 }
 
-label {
-    display: block;
+p {
+    text-align: center;
+    font-size: 18px;
     margin-top: 10px;
 }
 
-input {
+.form-container {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background-color: #f9f9f9;
+}
+
+.styled-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.styled-form label {
+    margin-top: 10px;
+}
+
+.styled-form input {
+    padding: 10px;
+    margin-top: 5px;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 10px; /* Промежуток между кнопками */
+}
+
+.chat-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 20px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+    background-color: #45a049;
+}
+
+#chats {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#createChatPopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+#createChatPopup h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+#createChatPopup label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#createChatPopup input, #createChatPopup select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#createChatPopup button {
+    margin: 5px;
 }
