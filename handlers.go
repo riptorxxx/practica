@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
@@ -29,6 +30,7 @@ type User struct {
 	Phone    string `json:"phone"`
 	Password string `json:"password"`
 	Token    string `json:"token"`
+	UID      string `json:"uid"`
 }
 
 type Chat struct {
@@ -54,7 +56,8 @@ func loginHandler(c *gin.Context) {
 	}
 
 	var dbUser User
-	err := db.QueryRow("SELECT login, password FROM users WHERE login=$1", user.Login).Scan(&dbUser.Login, &dbUser.Password)
+	err := db.QueryRow("SELECT uid, login, password FROM users WHERE login=$1", user.Login).Scan(&dbUser.UID, &dbUser.Login, &dbUser.Password)
+	// err := db.QueryRow("SELECT login, password FROM users WHERE login=$1", user.Login).Scan(&dbUser.Login, &dbUser.Password)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			log.Printf("Invalid login or password: %v", user)
@@ -96,6 +99,20 @@ func loginHandler(c *gin.Context) {
 		return
 	}
 
+	// Проверка наличия чатов у пользователя
+
+	hasChats, err := userHasChats(dbUser.UID)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "Error checking user chats")
+		return
+	}
+
+	// Сохранение информации в сессии
+	session := sessions.Default(c)
+	session.Set("user_uid", dbUser.UID)
+	session.Set("has_chats", hasChats)
+	session.Save()
+
 	log.Printf("User logged in successfully: %v", user.Login)
 	// c.JSON(http.StatusOK, gin.H{"token": tokenString})
 	c.JSON(http.StatusOK, gin.H{"token": tokenString, "redirect": "/main"})
@@ -108,7 +125,7 @@ func registerHandler(c *gin.Context) {
 		log.Printf("Error binding JSON: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
-	}
+	} 
 
 	// Проверка уникальности
 	var exists bool
@@ -281,6 +298,33 @@ func handleBroadcast() {
 			}
 		}
 	}
+}
+
+// ____________________________________________  Main Page Handler  ____________________________________________  \\
+func mainPageHandler(c *gin.Context) {
+	session := sessions.Default(c)
+	userUID := session.Get("user_uid")
+	hasChats := session.Get("has_chats")
+
+	if userUID == nil {
+		c.Redirect(http.StatusFound, "/login")
+		return
+	}
+
+	// Отображение главной страницы с информацией о чате
+	c.HTML(http.StatusOK, "main.html", gin.H{
+		"HasChats": hasChats,
+	})
+}
+
+// Проверка наличия чатов у пользователя
+func userHasChats(userUID string) (bool, error) {
+	var count int
+	err := db.QueryRow("SELECT COUNT(*) FROM chats WHERE user_uid = $1", userUID).Scan(&count)
+	if err != nil {
+		return false, err
+	}
+	return count > 0, nil
 }
 
 // ____________________________________________  Create Chat Handler  ____________________________________________  \\

@@ -32,12 +32,24 @@
     background: #1abc9c;
   }
   
-  .discussions {
+  /* .discussions {
     width: 30%;
     background: #ecf0f1;
     overflow-y: auto;
-  }
+  } */
   
+/* === CONVERSATIONS === */
+
+  .discussions {
+    width: 35%;
+    height: 700px;
+    box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
+    overflow-y: scroll; 
+    background-color: #87a3ec;
+    display: inline-block;
+  }
+
+
   .discussion {
     display: flex;
     align-items: center;
@@ -119,4 +131,52 @@
     border-radius: 10px;
     color: white;
     cursor: pointer;
+  }
+
+  /* chat.css */
+
+/* Остальные стили остаются без изменений */
+
+  .message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .message .photo {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .message .text {
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+  }
+
+  .my-message {
+    justify-content: flex-end;
+  }
+
+  .my-message .text {
+    background: #dcf8c6;
+  }
+
+  .my-message .photo {
+    order: 1;
+    margin-left: 10px;
+    margin-right: 0;
+  }
+
+  .other-message {
+    justify-content: flex-start;
+  }
+
+  .other-message .text {
+    background: #f1f0f0;
   }
